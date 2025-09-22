@@ -1,0 +1,33 @@
+.header {
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 50px;
+    padding: 20px;
+    background: var(--medium);
+    color: var(--white);
+}
+
+.header-title {
+    margin: 0;
+    font-weight: normal;
+    font-size: 28px;
+}
+
+.nav-item {
+    text-decoration: none;
+    color: var(--white);
+    transition: all 0.6s ease;
+    padding: 10px;
+}
+
+.nav-item:not(:last-child) {
+    margin-right: 20px;
+}
+
+.nav-item:hover, .nav-item:focus {
+    color: var(--medium);
+    box-shadow: inset 200px 0 0 0 var(--white);
+}
