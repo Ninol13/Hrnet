@@ -1,0 +1,10 @@
+body {
+    --white: #F7F7FF;
+    --medium: rgb(87, 115, 153);
+    --mediumLowOpacity: rgba(87, 115, 153, 0.7);
+    margin: 0;
+    background: var(--white);
+    font-family: 'Wix Madefor Text', sans-serif;
+    box-sizing: border-box;
+    max-width: 100vw;
+}
