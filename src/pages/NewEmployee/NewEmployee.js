@@ -82,24 +82,41 @@ export default function NewEmployee() {
     const form = event.target;
     const formData = new FormData(form);
     const employee = Object.fromEntries(formData.entries());
-    console.log(employee);
-    employee.state = USstate;
-    employee.department = department;
-    employee.birthday = dayjs(birthday).toISOString();
-    employee.startDate = dayjs(startDate).toISOString();
 
-    if (
-      employee.firstName &&
-      employee.lastName &&
-      employee.street &&
-      employee.city &&
-      zipCodeRegex.test(employee.zipCode)
-    ) {
+    // Nettoyage des champs texte
+    employee.firstName = employee.firstName.trim();
+    employee.lastName = employee.lastName.trim();
+    employee.city = employee.city.trim();
+    employee.street = employee.street.trim();
+    employee.zipCode = employee.zipCode.trim();
+
+    // Vérification des dates
+    const today = dayjs();
+    const minAgeDate = today.subtract(16, "year");
+    const birthdayDate = dayjs(birthday);
+    const startDateParsed = dayjs(startDate);
+
+    // Conditions de validation
+    const validTextFields =
+      employee.firstName.length >= 3 &&
+      employee.lastName.length >= 3 &&
+      employee.city.length >= 3 &&
+      employee.street.length >= 3 &&
+      zipCodeRegex.test(employee.zipCode);
+
+    const validDates =
+      birthdayDate.isBefore(minAgeDate) && // pas de naissance future / trop récente
+      startDateParsed.isBefore(today.add(1, "day")); // pas de début après aujourd'hui
+
+    if (validTextFields && validDates) {
       dispatch(addEmployee(employee));
       setEmployee(employee);
       setModal(true);
+    } else {
+      alert("⚠️ Vérifiez le formulaire : chaque champ doit contenir au moins 3 caractères et les dates doivent être valides.");
     }
   };
+
 
   return (
     <div className="newEmployee">
